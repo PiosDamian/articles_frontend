@@ -1,9 +1,14 @@
 <template>
-  <hello-world />
+  <v-container>
+    <articles></articles>
+  </v-container>
 </template>
 
 <script>
+import Articles from '@/components/Articles';
+
 export default {
-  name: 'Home'
+  name: 'Home',
+  components: { articles: Articles }
 };
 </script>

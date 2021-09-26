@@ -1,9 +1,11 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Home from '../views/Home.vue';
+import Home from '@/views/Home.vue';
+import store from '@/store';
 
 Vue.use(VueRouter);
 
+// widoki tworzenia i czytania całego artykułu są jako lazy aby przyspieszyć wstępne wczytywanie aplikacji
 const routes = [
   {
     path: '/',
@@ -11,13 +13,23 @@ const routes = [
     component: Home
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ '../views/About.vue')
+    path: '/article/new',
+    name: 'Create',
+    component: () => import('../views/Create-article'),
+    // strażnik sprawdzający stan zalogowania użytkownika
+    beforeEnter: (to, from, next) => {
+      if (!store.getters.isAuthorized) {
+        next('/');
+      }
+
+      next();
+    }
+  },
+  {
+    path: '/article/:id',
+    name: 'Article',
+    component: () => import('../views/Article'),
+    props: true
   }
 ];
 
