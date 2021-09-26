@@ -27,3 +27,6 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+Aplikacja używa proxy do łączenie się z backend.
+Jeżeli backend znajduje się gdzie indziej niż `localhost:8000` należy zmodyfikować plik [vue.config.js](vue.config.js)
